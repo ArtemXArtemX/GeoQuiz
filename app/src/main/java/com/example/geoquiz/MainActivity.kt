@@ -87,6 +87,10 @@ fun QuizScreen(vm: QuizViewModel = viewModel()) {
                 }
             }
 
+            if (uiState.showResult) {
+                Button(onClick = { vm.restart() }) { Text("Restart") }
+            }
+
             LinearProgressIndicator(
                 progress = (uiState.currentIndex + 1f) / vm.totalQuestions,
                 modifier = Modifier.fillMaxWidth()

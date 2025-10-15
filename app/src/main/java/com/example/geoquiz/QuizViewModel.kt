@@ -44,4 +44,8 @@ class QuizViewModel : ViewModel() {
 
 
     fun isLastQuestion(): Boolean = _uiState.value.currentIndex == totalQuestions - 1
+
+    fun restart() {
+        _uiState.value = UiState()
+    }
 }

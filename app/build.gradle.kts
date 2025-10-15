@@ -40,7 +40,7 @@ android {
 }
 
 dependencies {
-    implementation(libs.androidx.compose.bom.v20251000)
+    implementation(platform(libs.androidx.compose.bom))
 
     implementation(libs.androidx.compose.ui.ui2)
     implementation(libs.androidx.compose.ui.ui.tooling.preview2)
@@ -48,7 +48,10 @@ dependencies {
     implementation(libs.androidx.foundation.layout.android)
     debugImplementation(libs.androidx.compose.ui.ui.tooling2)
 
-    implementation(libs.androidx.compose.material3.material3)
+    implementation(libs.androidx.compose.ui.ui3)
+    implementation(libs.androidx.compose.ui.ui.tooling.preview3)
+    debugImplementation(libs.androidx.compose.ui.ui.tooling3)
+    implementation(libs.androidx.compose.material3.material32)
 
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.lifecycle.runtime.ktx)

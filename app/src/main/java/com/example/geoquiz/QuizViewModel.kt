@@ -31,6 +31,9 @@ class QuizViewModel : ViewModel() {
         val idx = _uiState.value.currentIndex
         val isCorrect = questionBank[idx].answer == userAnswer
         _uiState.update { s -> s.copy(answered = true, correctCount = s.correctCount + if (isCorrect) 1 else 0) }
+        if (isLastQuestion()) {
+            _uiState.update { it.copy(showResult = true) }
+        }
     }
 
 

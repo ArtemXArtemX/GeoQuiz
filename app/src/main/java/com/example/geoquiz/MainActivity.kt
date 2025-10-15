@@ -9,9 +9,11 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.geoquiz.quiz.QuizViewModel
+import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,11 +26,25 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+@Preview
 @Composable
 fun QuizScreen(vm: QuizViewModel = viewModel()) {
     val uiState by vm.uiState.collectAsState()
 
-    Scaffold { padding ->
+    val snackbarHostState = remember { SnackbarHostState() }
+    val scope = rememberCoroutineScope()
+
+
+    LaunchedEffect(uiState.showResult) {
+        if (uiState.showResult) {
+            val msg = "Result: ${uiState.correctCount} / ${vm.totalQuestions}"
+            scope.launch { snackbarHostState.showSnackbar(msg) }
+        }
+    }
+
+    Scaffold(
+        snackbarHost = { SnackbarHost(snackbarHostState) }
+    ) { padding ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
